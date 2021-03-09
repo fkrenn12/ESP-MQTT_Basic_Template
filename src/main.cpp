@@ -55,8 +55,7 @@ void mqtt_message(String &topic, String &payload)
   String time = String(local.tm_hour) + ":" + String(local.tm_min) + ":" + String(local.tm_sec);
   Serial.println(time + " Received: " + topic + " " + payload);
   
-  node.handle_standard_commands(topic, payload);
-  if (node.is_message_for_this_device(topic)) 
+  if (!node.handle_standard_commands(topic, payload) && node.is_message_for_this_device(topic)) 
   {
     /*
     Code to pass on 
